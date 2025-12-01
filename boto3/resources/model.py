@@ -326,7 +326,6 @@ class ResourceModel:
             )
             for identifier in ref['resource']['identifiers']:
                 if identifier['source'] == 'data':
-                    data_required = True
                     # undo self._load_name_with_category(
                     # names, name, 'subresource', snake_case=False) 
                     self._load_name_with_category(names, name, 'reference')
