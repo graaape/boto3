@@ -321,18 +321,17 @@ class ResourceModel:
         for name, ref in self._get_has_definition().items():
             # Subresources require no data members, just typically
             # identifiers and user input.
-            data_required = False
+            self._load_name_with_category(
+                    names, name, 'subresource', snake_case=False
+            )
             for identifier in ref['resource']['identifiers']:
                 if identifier['source'] == 'data':
                     data_required = True
+                    # undo self._load_name_with_category(
+                    # names, name, 'subresource', snake_case=False) 
+                    self._load_name_with_category(names, name, 'reference')
                     break
-
-            if not data_required:
-                self._load_name_with_category(
-                    names, name, 'subresource', snake_case=False
-                )
-            else:
-                self._load_name_with_category(names, name, 'reference')
+                
 
         for name in self._definition.get('hasMany', {}):
             self._load_name_with_category(names, name, 'collection')
